@@ -19,6 +19,7 @@ namespace PriceData.Controllers
 			return View();
 		}
 
+		[HttpGet]
 		public IEnumerable<Price> GetPrices()
 		{
 			return _context.Prices.ToList();
