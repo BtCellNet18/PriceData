@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.IO;
 
 namespace PriceData.Models
@@ -32,9 +33,12 @@ namespace PriceData.Models
 				return results;
 			}
 
+			string format = "dd/MM/yyyy HH:mm:ss";
+
 			using (var reader = new StreamReader(file.OpenReadStream()))
 			{
 				int row = 0;
+				var culture = new CultureInfo("en-GB");
 
 				while (reader.Peek() >= 0)
 				{
@@ -53,7 +57,7 @@ namespace PriceData.Models
 
 					DateTime dateTime;
 
-					if (!DateTime.TryParse(parts[0], out dateTime))
+					if (!DateTime.TryParse(parts[0], culture, DateTimeStyles.None, out dateTime))
 					{
 						results.Add(new ValidationResult($"Invalid Date on line {row}"));
 						return results;

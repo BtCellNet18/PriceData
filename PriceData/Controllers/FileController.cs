@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using PriceData.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using Z.EntityFramework.Extensions;
@@ -62,6 +63,7 @@ namespace PriceData.Controllers
 
 		private async Task<List<Price>> ReadFileAsync(IFormFile file)
 		{
+			var culture = new CultureInfo("en-GB");
 			List<Price> prices = new List<Price>();
 			using (var reader = new StreamReader(file.OpenReadStream()))
 			{
@@ -78,7 +80,7 @@ namespace PriceData.Controllers
 
 					prices.Add(new Price()
 					{
-						Date = DateTime.Parse(parts[0]),
+						Date = DateTime.Parse(parts[0], culture, DateTimeStyles.None),
 						Value = decimal.Parse(parts[1])
 					});
 				}
