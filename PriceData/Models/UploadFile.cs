@@ -33,8 +33,6 @@ namespace PriceData.Models
 				return results;
 			}
 
-			string format = "dd/MM/yyyy HH:mm:ss";
-
 			using (var reader = new StreamReader(file.OpenReadStream()))
 			{
 				int row = 0;
